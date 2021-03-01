@@ -57,8 +57,8 @@ $(function () {
             }
             layui.layer.msg(res.message)
             console.log(res.token);
-            localStorage.setItem=("token",res.token)
-            // location.href='/index.html'
+            localStorage.setItem('token', res.token)
+            location.href='/index.html'
               })
 
 
