@@ -28,14 +28,16 @@ $(function () {
             type: "POST",
             url: "/api/reguser",
             data: {
-                username: $('.reg_box [name=username]').val(),
-                password: $('.reg_box [name=password]').val()
+                username: $('#reg-form [name=username]').val(),
+                password: $('#reg-form [name=password]').val()
             },
             success: function (res) {
                 if (res.status !== 0) {
                     return layui.layer.msg(res.message);
                 }
                 layui.layer.msg('注册成功请登录');
+                $('#login-form [name=username]').val($('#reg-form [name=username]').val())
+                $('#login-form [name=password]').val($('#reg-form [name=password]').val())
                 $('#link_login').click()
 
             }
@@ -45,12 +47,13 @@ $(function () {
     // 登录界面
     $('#login-form').on('submit', function (e) {
         e.preventDefault()
-       var data= {
-        username: $('.login_box [name=username]').val(),
-        password: $('.login_box [name=password]').val()
-    }
+        var data = {
+            username: $('#login-form [name=username]').val(),
+            password: $('#login-form [name=password]').val()
+        }
         $.post('/api/login', data, function (res) {
-        
+            console.log(res);
+
             if (res.status !== 0) {
 
                 layui.layer.msg(res.message);
@@ -58,8 +61,8 @@ $(function () {
             layui.layer.msg(res.message)
             console.log(res.token);
             localStorage.setItem('token', res.token)
-            location.href='/index.html'
-              })
+            location.href = '/index.html'
+        })
 
 
 
